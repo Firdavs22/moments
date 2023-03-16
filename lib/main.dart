@@ -6,6 +6,7 @@ import 'reels_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'main_screen.dart';
+import 'hexagon_clipper.dart';
 
 void main() {
   runApp(MomentsApp());
@@ -16,7 +17,7 @@ class MomentsApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return NeumorphicApp(
       theme: NeumorphicThemeData(
-        baseColor: Color(0xFFf0f0f0),
+        baseColor: Color.fromARGB(255, 238, 238, 238),
         lightSource: LightSource.topLeft,
         depth: 10,
       ),
@@ -52,17 +53,29 @@ class _MainScreenState extends State<MainScreen> {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Row(
-              children: [
-                NeumorphicIcon(Icons.account_circle, size: 24),
-                SizedBox(width: 8),
-                Text(
-                    'Username'), // Замените 'Username' на реальное имя пользователя
-              ],
+            Flexible(
+              // добавьте Flexible здесь
+              child: Row(
+                children: [
+                  ClipPath(
+                    clipper: HexagonClipper(),
+                    child: Container(
+                      color: Color.fromARGB(255, 255, 0, 0),
+                      height: 33,
+                      width: 33,
+                    ),
+                  ),
+                  SizedBox(width: 8),
+                  Text(
+                    'Username',
+                    style: TextStyle(fontSize: 17),
+                  ),
+                ],
+              ),
             ),
             Image.asset(
-              'assets/logo.png', // Убедитесь, что логотип загружен в папку assets
-              height: 20,
+              'assets/logo.png',
+              height: 15,
             ),
           ],
         ),
@@ -70,10 +83,10 @@ class _MainScreenState extends State<MainScreen> {
       body: _screens[_selectedIndex],
       bottomNavigationBar: NeumorphicBackground(
         child: Container(
-          padding: EdgeInsets.only(bottom: 1), // добавьте это
+          padding: EdgeInsets.only(bottom: 1),
           height: 110,
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               NeumorphicButton(
                 style: NeumorphicStyle(
