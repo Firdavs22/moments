@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
 class FeedScreen extends StatefulWidget {
   @override
@@ -6,131 +7,87 @@ class FeedScreen extends StatefulWidget {
 }
 
 class _FeedScreenState extends State<FeedScreen> {
-  List<Post> posts = [
-    Post(
-        type: PostType.singleImage,
-        title: 'Пост 1',
-        imageUrl: 'assets/image1.jpg'),
-    Post(
-        type: PostType.carousel,
-        title: 'Пост 2',
-        imagesUrl: ['assets/image2.jpg', 'assets/image3.jpg']),
-    // Добавьте другие посты здесь
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+      appBar: NeumorphicAppBar(
         title: Text('Лента'),
-      ),
-      body: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        itemCount: posts.length,
-        itemBuilder: (context, index) {
-          final post = posts[index];
-          return GestureDetector(
-            onTap: () {
-              // Открыть экран с подробностями поста
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => PostDetailsScreen(post: post)),
-              );
-            },
-            child: Container(
-              width: MediaQuery.of(context).size.width * 0.8,
-              margin: EdgeInsets.all(8.0),
-              child: Card(
-                child: Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(post.title,
-                          style: TextStyle(
-                              fontSize: 24, fontWeight: FontWeight.bold)),
-                      if (post.type == PostType.singleImage)
-                        Image.asset(post.imageUrl!)
-                      else if (post.type == PostType.carousel)
-                        SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          child: Row(
-                            children: post.imagesUrl!
-                                .map((imageUrl) => Padding(
-                                      padding: EdgeInsets.all(4.0),
-                                      child: Image.asset(imageUrl),
-                                    ))
-                                .toList(),
-                          ),
-                        ),
-                      // Здесь вы можете добавить другие виджеты для отображения информации о посте
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          );
-        },
-      ),
-    );
-  }
-}
-
-enum PostType { singleImage, carousel }
-
-class Post {
-  final PostType type;
-  final String title;
-  final String? imageUrl;
-  final List<String>? imagesUrl;
-
-  Post(
-      {required this.type, required this.title, this.imageUrl, this.imagesUrl});
-}
-
-class PostDetailsScreen extends StatelessWidget {
-  final Post post;
-
-  PostDetailsScreen({required this.post});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Подробности поста'),
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(16.0),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                post.title,
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-              ),
-              SizedBox(height: 16),
-              if (post.type == PostType.singleImage)
-                Image.asset(post.imageUrl!)
-              else if (post.type == PostType.carousel)
-                SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
-                    children: post.imagesUrl!
-                        .map((imageUrl) => Padding(
-                              padding: EdgeInsets.all(4.0),
-                              child: Image.asset(imageUrl),
-                            ))
-                        .toList(),
+              Stack(
+                children: [
+                  Container(
+                    height: 200,
+                    child: PageView.builder(
+                      itemBuilder: (context, index) {
+                        return Image.network(
+                          'https://source.unsplash.com/random?sig=$index',
+                          fit: BoxFit.cover,
+                        );
+                      },
+                    ),
                   ),
-                ),
-              SizedBox(height: 16),
-              // Здесь вы можете добавить виджеты, которые отображают контент статьи, если это необходимо
-              // Например, вы можете использовать виджет Text с длинным текстом статьи
-              Text(
-                'Текст статьи здесь. Текст статьи здесь. Текст статьи здесь. Текст статьи здесь. Текст статьи здесь.',
-                style: TextStyle(fontSize: 16),
+                  Positioned(
+                    right: 16,
+                    bottom: 16,
+                    child: NeumorphicButton(
+                      onPressed: () {
+                        // TODO: Реализовать функционал для просмотра полной статьи
+                      },
+                      child: Text('Открыть статью'),
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  NeumorphicButton(
+                    onPressed: () {
+                      // TODO: Реализовать функционал лайков
+                    },
+                    child: Icon(Icons.favorite_border),
+                  ),
+                  Text(
+                      '10'), // Замените число на переменную с количеством лайков
+                  NeumorphicButton(
+                    onPressed: () {
+                      // TODO: Реализовать функционал "поделиться"
+                    },
+                    child: Icon(Icons.share),
+                  ),
+                  Text(
+                      '5'), // Замените число на переменную с количеством поделившихся
+                ],
+              ),
+              Row(
+                children: [
+                  Expanded(
+                    child: Neumorphic(
+                      style: NeumorphicStyle(
+                        boxShape: NeumorphicBoxShape.roundRect(
+                          BorderRadius.circular(12),
+                        ),
+                      ),
+                      child: TextField(
+                        decoration: InputDecoration(
+                          labelText: 'Добавить комментарий',
+                          prefixIcon: Icon(Icons.comment),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: 8),
+                  Text(
+                      '3'), // Замените число на переменную с количеством комментариев
+                ],
               ),
             ],
           ),

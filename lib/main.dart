@@ -3,10 +3,9 @@ import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'search_screen.dart';
 import 'feed_screen.dart';
 import 'reels_screen.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'main_screen.dart';
 import 'hexagon_clipper.dart';
+import 'feed_screen.dart';
 
 void main() {
   runApp(MomentsApp());
@@ -105,8 +104,8 @@ class _MainScreenState extends State<MainScreen> {
                   ),
                 ),
                 child: Image.asset('assets/play-cricle.png',
-                    width: 32, height: 37),
-                onPressed: () => _onItemTapped(0),
+                    width: 40, height: 50),
+                onPressed: () => _onItemTapped(1),
               ),
               NeumorphicButton(
                 style: NeumorphicStyle(
@@ -116,7 +115,7 @@ class _MainScreenState extends State<MainScreen> {
                 ),
                 child: Image.asset('assets/video-vertical.png',
                     width: 32, height: 37),
-                onPressed: () => _onItemTapped(0),
+                onPressed: () => _onItemTapped(2),
               ),
             ],
           ),
