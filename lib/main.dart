@@ -94,7 +94,7 @@ class _MainScreenState extends State<MainScreen> {
                   ),
                 ),
                 child: Image.asset('assets/global-search.png',
-                    width: 32, height: 37),
+                    width: 40, height: 50),
                 onPressed: () => _onItemTapped(0),
               ),
               NeumorphicButton(
@@ -114,7 +114,7 @@ class _MainScreenState extends State<MainScreen> {
                   ),
                 ),
                 child: Image.asset('assets/video-vertical.png',
-                    width: 32, height: 37),
+                    width: 40, height: 50),
                 onPressed: () => _onItemTapped(2),
               ),
             ],
