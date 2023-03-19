@@ -1,8 +1,10 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
 class AuthScreen extends StatefulWidget {
+  const AuthScreen({super.key});
+
   @override
+  // ignore: library_private_types_in_public_api
   _AuthScreenState createState() => _AuthScreenState();
 }
 
@@ -11,7 +13,7 @@ class _AuthScreenState extends State<AuthScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: NeumorphicAppBar(
-        title: Text('Авторизация'),
+        title: const Text('Авторизация'),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -20,7 +22,7 @@ class _AuthScreenState extends State<AuthScreen> {
             children: [
               Image.asset(
                   'assets/minelogo.png'), // Добавьте это для отображения изображения
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               Neumorphic(
                 style: NeumorphicStyle(
                   boxShape: NeumorphicBoxShape.roundRect(
@@ -30,14 +32,14 @@ class _AuthScreenState extends State<AuthScreen> {
                 child: TextField(
                   decoration: InputDecoration(
                     labelText: 'Номер телефона',
-                    prefixIcon: Icon(Icons.phone),
+                    prefixIcon: const Icon(Icons.phone),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
                   ),
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               NeumorphicButton(
                 style: NeumorphicStyle(
                   boxShape: NeumorphicBoxShape.roundRect(
@@ -45,16 +47,18 @@ class _AuthScreenState extends State<AuthScreen> {
                   ),
                 ),
                 onPressed: () {
+                  // ignore: todo
                   // TODO: Реализовать авторизацию через Firebase
                 },
-                child: Text('Войти'),
+                child: const Text('Войти'),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               InkWell(
                 onTap: () {
+                  // ignore: todo
                   // TODO: Открыть экран регистрации
                 },
-                child: Text(
+                child: const Text(
                   'Регистрация',
                   style: TextStyle(
                     decoration: TextDecoration.underline,

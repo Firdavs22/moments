@@ -1,20 +1,18 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'search_screen.dart';
 import 'feed_screen.dart';
-import 'reels_screen.dart';
-import 'main_screen.dart';
-import 'hexagon_clipper.dart';
-import 'feed_screen.dart';
+import 'create_post_screen.dart';
 
 void main() {
-  runApp(MomentsApp());
+  runApp(const MomentsApp());
 }
 
 class MomentsApp extends StatelessWidget {
+  const MomentsApp({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return NeumorphicApp(
+    return const NeumorphicApp(
       theme: NeumorphicThemeData(
         baseColor: Color.fromARGB(255, 238, 238, 238),
         lightSource: LightSource.topLeft,
@@ -26,17 +24,20 @@ class MomentsApp extends StatelessWidget {
 }
 
 class MainScreen extends StatefulWidget {
+  const MainScreen({super.key});
+
   @override
+  // ignore: library_private_types_in_public_api
   _MainScreenState createState() => _MainScreenState();
 }
 
 class _MainScreenState extends State<MainScreen> {
-  int _selectedIndex = 0;
+  int _selectedIndex = 1;
 
   final List<Widget> _screens = [
-    SearchScreen(),
-    FeedScreen(),
-    ReelsScreen(),
+    const SearchScreen(),
+    const FeedScreen(),
+    const CreatePostScreen(),
   ];
 
   void _onItemTapped(int index) {
@@ -52,29 +53,26 @@ class _MainScreenState extends State<MainScreen> {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Flexible(
-              // добавьте Flexible здесь
-              child: Row(
-                children: [
-                  ClipPath(
-                    clipper: HexagonClipper(),
-                    child: Container(
-                      color: Color.fromARGB(255, 255, 0, 0),
-                      height: 33,
-                      width: 33,
-                    ),
-                  ),
-                  SizedBox(width: 8),
-                  Text(
-                    'Username',
-                    style: TextStyle(fontSize: 17),
-                  ),
-                ],
+            Neumorphic(
+              style: const NeumorphicStyle(
+                boxShape: NeumorphicBoxShape.circle(),
+                depth: 8,
+                intensity: 0.6,
+              ),
+              child: const CircleAvatar(
+                radius: 16,
+                backgroundImage: AssetImage('assets/images/avatar.jpg'),
               ),
             ),
+            const SizedBox(width: 8),
+            const Text(
+              'Username',
+              style: TextStyle(fontSize: 17),
+            ),
+            const Spacer(),
             Image.asset(
               'assets/logo.png',
-              height: 15,
+              height: 24,
             ),
           ],
         ),
@@ -82,8 +80,8 @@ class _MainScreenState extends State<MainScreen> {
       body: _screens[_selectedIndex],
       bottomNavigationBar: NeumorphicBackground(
         child: Container(
-          padding: EdgeInsets.only(bottom: 1),
-          height: 110,
+          padding: const EdgeInsets.only(bottom: 1),
+          height: 80,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -94,7 +92,7 @@ class _MainScreenState extends State<MainScreen> {
                   ),
                 ),
                 child: Image.asset('assets/global-search.png',
-                    width: 40, height: 50),
+                    width: 37, height: 37),
                 onPressed: () => _onItemTapped(0),
               ),
               NeumorphicButton(
@@ -104,7 +102,7 @@ class _MainScreenState extends State<MainScreen> {
                   ),
                 ),
                 child: Image.asset('assets/play-cricle.png',
-                    width: 40, height: 50),
+                    width: 37, height: 37),
                 onPressed: () => _onItemTapped(1),
               ),
               NeumorphicButton(
@@ -114,7 +112,7 @@ class _MainScreenState extends State<MainScreen> {
                   ),
                 ),
                 child: Image.asset('assets/video-vertical.png',
-                    width: 40, height: 50),
+                    width: 37, height: 37),
                 onPressed: () => _onItemTapped(2),
               ),
             ],
@@ -122,68 +120,5 @@ class _MainScreenState extends State<MainScreen> {
         ),
       ),
     );
-  }
-}
-
-class AuthScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container();
-  }
-}
-
-class FeedScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container();
-  }
-}
-
-class SearchScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container();
-  }
-}
-
-class ProfileScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container();
-  }
-}
-
-class CreatePostScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container();
-  }
-}
-
-class DiscoverScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container();
-  }
-}
-
-class NotificationsScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container();
-  }
-}
-
-class ReelsScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container();
-  }
-}
-
-class SavedPostsScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container();
   }
 }

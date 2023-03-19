@@ -1,17 +1,18 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
 class FeedScreen extends StatelessWidget {
+  const FeedScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Moments')),
+      appBar: AppBar(title: const Text('Moments')),
       body: ListView.builder(
         itemCount: 10, // количество постов в ленте
         scrollDirection: Axis.horizontal,
         itemBuilder: (context, index) {
           return Container(
-            margin: EdgeInsets.only(right: 16),
+            margin: const EdgeInsets.only(right: 16),
             child: _buildPost(context),
           );
         },
@@ -34,19 +35,19 @@ class FeedScreen extends StatelessWidget {
               Row(
                 children: [
                   Neumorphic(
-                    style: NeumorphicStyle(
+                    style: const NeumorphicStyle(
                       shape: NeumorphicShape.concave,
                       boxShape: NeumorphicBoxShape.circle(),
                     ),
-                    child: CircleAvatar(
+                    child: const CircleAvatar(
                       backgroundImage: AssetImage('assets/images/avatar.jpg'),
                       radius: 20,
                     ),
                   ),
-                  SizedBox(width: 8),
+                  const SizedBox(width: 8),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
+                    children: const [
                       Text(
                         'Username',
                         style: TextStyle(fontWeight: FontWeight.bold),
@@ -56,10 +57,10 @@ class FeedScreen extends StatelessWidget {
                   ),
                 ],
               ),
-              Text('Date'),
+              const Text('Date'),
             ],
           ),
-          SizedBox(height: 8),
+          const SizedBox(height: 8),
           Neumorphic(
             style: NeumorphicStyle(
               boxShape: NeumorphicBoxShape.roundRect(
@@ -80,43 +81,43 @@ class FeedScreen extends StatelessWidget {
                 children: [
                   IconButton(
                     onPressed: () {},
-                    icon: Icon(Icons.favorite_border),
+                    icon: const Icon(Icons.favorite_border),
                   ),
-                  Text('1000'),
+                  const Text('1000'),
                 ],
               ),
               Row(
                 children: [
                   IconButton(
                     onPressed: () {},
-                    icon: Icon(Icons.comment),
+                    icon: const Icon(Icons.comment),
                   ),
-                  Text('25'),
+                  const Text('25'),
                 ],
               ),
               IconButton(
                 onPressed: () {},
-                icon: Icon(Icons.share),
+                icon: const Icon(Icons.share),
               ),
             ],
           ),
-          SizedBox(height: 4),
-          Text(
+          const SizedBox(height: 4),
+          const Text(
             'Username',
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
-          Text(
+          const Text(
             'Caption text with #hashtags and @mentions',
             style: TextStyle(height: 1.2),
           ),
-          SizedBox(height: 4),
-          Text(
+          const SizedBox(height: 4),
+          const Text(
             'View all 25 comments',
             style: TextStyle(color: Colors.grey),
           ),
           Row(
             children: [
-              Expanded(
+              const Expanded(
                 child: TextField(
                   decoration: InputDecoration(
                     hintText: 'Add a comment...',
@@ -126,7 +127,7 @@ class FeedScreen extends StatelessWidget {
               ),
               IconButton(
                 onPressed: () {},
-                icon: Icon(Icons.send),
+                icon: const Icon(Icons.send),
               ),
             ],
           ),

@@ -9,7 +9,13 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_neumorphic: any
+  flutter_neumorphic:
+  camera:
+  image_picker:
+  path_provider:
+  image_editor_pro:
+  video_player:
+  flutter_swiper:
 
 dev_dependencies:
   flutter_test:
@@ -23,5 +29,3 @@ flutter:
     - assets/
     - assets/global-search.png
     - assets/logo.png
-    - assets/play-cricle.png
-    - assets/video-vertical.png
