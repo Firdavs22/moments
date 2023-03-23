@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 
 class ReelsScreen extends StatelessWidget {
+  const ReelsScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Реелс')),
-      body: Center(
+      appBar: AppBar(title: const Text('Реелс')),
+      body: const Center(
         child: Text('Здесь будет экран Реелс'),
       ),
     );

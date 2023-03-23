@@ -9,7 +9,16 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_neumorphic: any
+  flutter_neumorphic: ^3.0.3
+  camera: any
+  image_picker: any
+  path_provider: any
+  image_editor_pro: any
+  video_player: any
+  flutter_swiper: any
+  intl: ^0.17.0
+  glassmorphism: ^3.0.0
+  
 
 dev_dependencies:
   flutter_test:

@@ -3,6 +3,8 @@
 #
 
 list(APPEND FLUTTER_PLUGIN_LIST
+  firexcode
+  image_editor_pro
 )
 
 list(APPEND FLUTTER_FFI_PLUGIN_LIST

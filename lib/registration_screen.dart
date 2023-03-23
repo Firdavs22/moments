@@ -1,8 +1,10 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
 class RegistrationScreen extends StatefulWidget {
+  const RegistrationScreen({super.key});
+
   @override
+  // ignore: library_private_types_in_public_api
   _RegistrationScreenState createState() => _RegistrationScreenState();
 }
 
@@ -11,7 +13,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: NeumorphicAppBar(
-        title: Text('Регистрация'),
+        title: const Text('Регистрация'),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -19,7 +21,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           child: Column(
             children: [
               Image.asset('assets/minelogo.png'),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               Neumorphic(
                 style: NeumorphicStyle(
                   boxShape: NeumorphicBoxShape.roundRect(
@@ -29,14 +31,14 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 child: TextField(
                   decoration: InputDecoration(
                     labelText: 'Номер телефона',
-                    prefixIcon: Icon(Icons.phone),
+                    prefixIcon: const Icon(Icons.phone),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
                   ),
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               NeumorphicButton(
                 style: NeumorphicStyle(
                   boxShape: NeumorphicBoxShape.roundRect(
@@ -44,16 +46,18 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   ),
                 ),
                 onPressed: () {
+                  // ignore: todo
                   // TODO: Реализовать регистрацию через Firebase
                 },
-                child: Text('Зарегистрироваться'),
+                child: const Text('Зарегистрироваться'),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               InkWell(
                 onTap: () {
+                  // ignore: todo
                   // TODO: Вернуться на экран авторизации
                 },
-                child: Text(
+                child: const Text(
                   'Уже зарегистрированы? Войти',
                   style: TextStyle(
                     decoration: TextDecoration.underline,
