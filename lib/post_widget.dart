@@ -176,23 +176,10 @@ class _PostWidgetState extends State<PostWidget> {
                       ),
                     ),
                     // Description
-                    GestureDetector(
-                      onVerticalDragUpdate: (details) {
-                        if (details.delta.dy < 0) {
-                          setState(() {
-                            _showComments = true;
-                          });
-                        } else if (details.delta.dy > 0) {
-                          setState(() {
-                            _showComments = false;
-                          });
-                        }
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 20.0, vertical: 8.0),
-                        child: Text(widget.description),
-                      ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20.0, vertical: 8.0),
+                      child: Text(widget.description),
                     ),
                     // Comments
                     AnimatedCrossFade(
@@ -225,46 +212,45 @@ class _PostWidgetState extends State<PostWidget> {
                           : CrossFadeState.showFirst,
                       duration: const Duration(milliseconds: 300),
                     ),
-                    // Comment input field and send button
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 16.0, vertical: 77.0),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: Neumorphic(
-                              style: NeumorphicStyle(
-                                boxShape: NeumorphicBoxShape.roundRect(
-                                    BorderRadius.circular(12)),
-                              ),
-                              child: TextField(
-                                controller: _commentController,
-                                decoration: InputDecoration(
-                                  hintText: 'Add a comment...',
-                                  contentPadding: const EdgeInsets.symmetric(
-                                      horizontal: 16.0),
-                                  border: OutlineInputBorder(
-                                    borderSide: BorderSide.none,
-                                    borderRadius: BorderRadius.circular(12),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                          const SizedBox(width: 8.0),
-                          NeumorphicButton(
-                            onPressed: _addComment,
-                            style: NeumorphicStyle(
-                              boxShape: NeumorphicBoxShape.roundRect(
-                                  BorderRadius.circular(12)),
-                            ),
-                            child: const Icon(Icons.send),
-                          ),
-                        ],
-                      ),
-                    ),
                   ],
                 ),
+              ),
+            ),
+            Container(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 32.0),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Neumorphic(
+                      style: NeumorphicStyle(
+                        boxShape: NeumorphicBoxShape.roundRect(
+                            BorderRadius.circular(12)),
+                      ),
+                      child: TextField(
+                        controller: _commentController,
+                        decoration: InputDecoration(
+                          hintText: 'Add a comment...',
+                          contentPadding:
+                              const EdgeInsets.symmetric(horizontal: 16.0),
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide.none,
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 8.0),
+                  NeumorphicButton(
+                    onPressed: _addComment,
+                    style: NeumorphicStyle(
+                      boxShape: NeumorphicBoxShape.roundRect(
+                          BorderRadius.circular(12)),
+                    ),
+                    child: const Icon(Icons.send),
+                  ),
+                ],
               ),
             ),
           ],
