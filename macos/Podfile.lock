@@ -1,0 +1,35 @@
+PODS:
+  - firexcode (0.0.1):
+    - FlutterMacOS
+  - FlutterMacOS (1.0.0)
+  - image_editor_pro (0.0.1):
+    - FlutterMacOS
+  - path_provider_foundation (0.0.1):
+    - Flutter
+    - FlutterMacOS
+
+DEPENDENCIES:
+  - firexcode (from `Flutter/ephemeral/.symlinks/plugins/firexcode/macos`)
+  - FlutterMacOS (from `Flutter/ephemeral`)
+  - image_editor_pro (from `Flutter/ephemeral/.symlinks/plugins/image_editor_pro/macos`)
+  - path_provider_foundation (from `Flutter/ephemeral/.symlinks/plugins/path_provider_foundation/macos`)
+
+EXTERNAL SOURCES:
+  firexcode:
+    :path: Flutter/ephemeral/.symlinks/plugins/firexcode/macos
+  FlutterMacOS:
+    :path: Flutter/ephemeral
+  image_editor_pro:
+    :path: Flutter/ephemeral/.symlinks/plugins/image_editor_pro/macos
+  path_provider_foundation:
+    :path: Flutter/ephemeral/.symlinks/plugins/path_provider_foundation/macos
+
+SPEC CHECKSUMS:
+  firexcode: 70d09bdc5aba4a970f98da8ff95283872c01f3bc
+  FlutterMacOS: 8f6f14fa908a6fb3fba0cd85dbd81ec4b251fb24
+  image_editor_pro: 4f33e4fb01a19f0d48f3e046540dbd566850a5ad
+  path_provider_foundation: c68054786f1b4f3343858c1e1d0caaded73f0be9
+
+PODFILE CHECKSUM: 353c8bcc5d5b0994e508d035b5431cfe18c1dea7
+
+COCOAPODS: 1.11.3

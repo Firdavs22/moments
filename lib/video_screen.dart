@@ -32,41 +32,15 @@ class _VideoScreenState extends State<VideoScreen> {
     super.dispose();
   }
 
+class ReelsScreen extends StatelessWidget {
+  const ReelsScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Video Screen'),
-      ),
-      body: Swiper(
-        itemBuilder: (BuildContext context, int index) {
-          return GestureDetector(
-            onTap: () {
-              setState(() {
-                if (_controllers[index].value.isPlaying) {
-                  _controllers[index].pause();
-                } else {
-                  _controllers[index].play();
-                }
-              });
-            },
-            child: Stack(
-              children: [
-                Center(
-                  child: AspectRatio(
-                    aspectRatio: _controllers[index].value.aspectRatio,
-                    child: VideoPlayer(_controllers[index]),
-                  ),
-                ),
-                // Add your interactive elements (like, comment, share) here
-              ],
-            ),
-          );
-        },
-        itemCount: videoUrls.length,
-        loop: false,
-        scrollDirection: Axis.vertical,
-        physics: BouncingScrollPhysics(),
+      appBar: AppBar(title: const Text('Реелс')),
+      body: const Center(
+        child: Text('Здесь будет экран Реелс'),
       ),
     );
   }

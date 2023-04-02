@@ -8,7 +8,7 @@ class HexagonClipper extends CustomClipper<Path> {
     final height = size.height;
 
     path.moveTo(width * 0.5, 0);
-    path.lineTo(width, height * 0.25);
+    path.lineTo(width, height * 0.23);
     path.lineTo(width, height * 0.75);
     path.lineTo(width * 0.5, height);
     path.lineTo(0, height * 0.75);
