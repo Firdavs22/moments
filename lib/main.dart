@@ -1,5 +1,8 @@
 import 'home_screen.dart';
-import 'package:flutter_neumorphic/flutter_neumorphic.dart'; // Импортируйте ваши экраны здесь
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'auth_screen.dart';
+import 'video_screen.dart';
+import 'discover_screen.dart'; // Импортируйте ваши экраны здесь
 
 void main() {
   runApp(const MomentsApp());
@@ -19,7 +22,7 @@ class MomentsApp extends StatelessWidget {
             LightSource.topLeft, // Источник света (например, сверху слева)
         depth: 10, // Глубина тени по умолчанию
       ),
-      home: HomeScreen(), // Замените HomeScreen на ваш главный экран
+      home: DiscoverScreen(), // Замените HomeScreen на ваш главный экран
     );
   }
 }

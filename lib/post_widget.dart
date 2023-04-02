@@ -1,3 +1,5 @@
+import 'dart:math';
+import 'package:flutter/gestures.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
@@ -45,215 +47,253 @@ class _PostWidgetState extends State<PostWidget> {
   void _toggleLike() {
     setState(() {
       _isLiked = !_isLiked;
-      widget.likeCount += _isLiked ? 1 : -1;
+      if (_isLiked) {
+        widget.likeCount += 1;
+      } else {
+        widget.likeCount -= 1;
+      }
     });
   }
 
   void _toggleShare() {
     setState(() {
       _isShared = !_isShared;
-      widget.shareCount += _isShared ? 1 : -1;
+      if (_isShared) {
+        widget.shareCount += 1;
+      } else {
+        widget.shareCount -= 1;
+      }
     });
   }
 
   void _addComment() {
-    if (_commentController.text.trim().isNotEmpty) {
-      setState(() {
-        widget.comments.add(_commentController.text.trim());
-        _commentController.clear();
-      });
-    }
+    setState(() {
+      widget.comments.add(_commentController.text);
+      _commentController.clear();
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: Column(
-          children: [
-            Expanded(
-              child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // Post content
-                    // Media container
-                    Stack(
-                      children: [
-                        SizedBox(
-                          height: 300,
-                          child: ClipRRect(
-                            borderRadius:
-                                BorderRadius.circular(widget.borderRadius),
-                            child: PageView(
-                              children: widget.mediaContent,
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                DateFormat('MMMM d')
-                                    .format(DateTime.parse(widget.postDate)),
-                                style: const TextStyle(fontSize: 14),
-                              ),
-                              Row(
-                                children: [
-                                  Column(
-                                    crossAxisAlignment: CrossAxisAlignment.end,
+    return GestureDetector(
+      onVerticalDragEnd: (DragEndDetails details) {
+        if (details.primaryVelocity != null && details.primaryVelocity! < 0) {
+          setState(() {
+            _showComments = true;
+          });
+        }
+      },
+      child: Scaffold(
+        body: SafeArea(
+          child: Column(
+            children: [
+              Expanded(
+                child: SingleChildScrollView(
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: widget.comments.length + 1,
+                    itemBuilder: (BuildContext context, int index) {
+                      if (index == 0) {
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            // Post content
+                            // Media container
+                            Stack(
+                              children: [
+                                SizedBox(
+                                  height: 300,
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(
+                                        widget.borderRadius),
+                                    child: Column(
+                                      children: widget.mediaContent,
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(16.0),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Text(widget.userName,
-                                          style: const TextStyle(
-                                              fontWeight: FontWeight.bold)),
-                                      if (widget.location.isNotEmpty)
-                                        Text(widget.location),
+                                      Text(
+                                        DateFormat('MMMM d').format(
+                                            DateTime.parse(widget.postDate)),
+                                        style: const TextStyle(fontSize: 14),
+                                      ),
+                                      Row(
+                                        children: [
+                                          Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.end,
+                                            children: [
+                                              Text(widget.userName,
+                                                  style: const TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold)),
+                                              if (widget.location.isNotEmpty)
+                                                Text(widget.location),
+                                            ],
+                                          ),
+                                          const SizedBox(width: 8.0),
+                                          CircleAvatar(
+                                            backgroundImage:
+                                                NetworkImage(widget.avatarUrl),
+                                          ),
+                                        ],
+                                      ),
                                     ],
                                   ),
-                                  const SizedBox(width: 8.0),
-                                  CircleAvatar(
-                                    backgroundImage:
-                                        NetworkImage(widget.avatarUrl),
+                                ),
+                              ],
+                            ),
+                            // Buttons
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 20.0, vertical: 12),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Row(
+                                    children: [
+                                      NeumorphicButton(
+                                        onPressed: _toggleLike,
+                                        style: NeumorphicStyle(
+                                          boxShape:
+                                              NeumorphicBoxShape.roundRect(
+                                                  BorderRadius.circular(12)),
+                                        ),
+                                        child: Icon(
+                                          _isLiked
+                                              ? Icons.favorite
+                                              : Icons.favorite_border,
+                                          color: _isLiked ? Colors.red : null,
+                                          size: widget.buttonSize,
+                                        ),
+                                      ),
+                                      SizedBox(
+                                          width: widget
+                                              .spacingBetweenButtonsAndCounters),
+                                      Text(widget.likeCount.toString()),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      Text(widget.shareCount.toString()),
+                                      SizedBox(
+                                          width: widget
+                                              .spacingBetweenButtonsAndCounters),
+                                      NeumorphicButton(
+                                        onPressed: _toggleShare,
+                                        style: NeumorphicStyle(
+                                          boxShape:
+                                              NeumorphicBoxShape.roundRect(
+                                                  BorderRadius.circular(12)),
+                                        ),
+                                        child: Icon(
+                                          Icons.share,
+                                          size: widget.buttonSize,
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ],
                               ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                    // Buttons
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 20.0, vertical: 12),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
-                            children: [
-                              NeumorphicButton(
-                                onPressed: _toggleLike,
-                                style: NeumorphicStyle(
-                                  boxShape: NeumorphicBoxShape.roundRect(
-                                      BorderRadius.circular(12)),
-                                ),
-                                child: Icon(
-                                  _isLiked
-                                      ? Icons.favorite
-                                      : Icons.favorite_border,
-                                  color: _isLiked ? Colors.red : null,
-                                  size: widget.buttonSize,
-                                ),
-                              ),
-                              SizedBox(
-                                  width:
-                                      widget.spacingBetweenButtonsAndCounters),
-                              Text(widget.likeCount.toString()),
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              Text(widget.shareCount.toString()),
-                              SizedBox(
-                                  width:
-                                      widget.spacingBetweenButtonsAndCounters),
-                              NeumorphicButton(
-                                onPressed: _toggleShare,
-                                style: NeumorphicStyle(
-                                  boxShape: NeumorphicBoxShape.roundRect(
-                                      BorderRadius.circular(12)),
-                                ),
-                                child: Icon(
-                                  Icons.share,
-                                  size: widget.buttonSize,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                    // Description
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 20.0, vertical: 8.0),
-                      child: Text(widget.description),
-                    ),
-                    // Comments
-                    AnimatedCrossFade(
-                      firstChild: Container(),
-                      secondChild: Container(
-                        height:
-                            300.0, // Change the height according to your needs
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text('${widget.userName}: ${widget.description}'),
-                            Flexible(
-                              fit: FlexFit.loose,
-                              child: ListView.builder(
-                                itemCount: widget.comments.length,
-                                itemBuilder: (BuildContext context, int index) {
-                                  return Padding(
-                                    padding: const EdgeInsets.only(bottom: 8.0),
-                                    child: Text(widget.comments[index]),
-                                  );
-                                },
-                              ),
                             ),
+                            // Description and Comments
+                            _showComments
+                                ? SizedBox(
+                                    height:
+                                        300.0, // Change the height according to your needs
+                                    child: ListView.builder(
+                                      itemCount: widget.comments.length + 1,
+                                      itemBuilder:
+                                          (BuildContext context, int index) {
+                                        if (index == 0) {
+                                          return Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                  '${widget.userName}: ${widget.description}'),
+                                              const SizedBox(height: 8.0),
+                                            ],
+                                          );
+                                        } else {
+                                          int commentIndex = index - 1;
+                                          return Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 20.0,
+                                                vertical: 8.0),
+                                            child: Text(
+                                                widget.comments[commentIndex]),
+                                          );
+                                        }
+                                      },
+                                    ),
+                                  )
+                                : Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 20.0, vertical: 8.0),
+                                    child: Text(widget.description),
+                                  ),
                           ],
-                        ),
-                      ),
-                      crossFadeState: _showComments
-                          ? CrossFadeState.showSecond
-                          : CrossFadeState.showFirst,
-                      duration: const Duration(milliseconds: 300),
-                    ),
-                  ],
+                        );
+                      } else {
+                        int commentIndex = index - 1;
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 20.0, vertical: 8.0),
+                          child: Text(widget.comments[commentIndex]),
+                        );
+                      }
+                    },
+                  ),
                 ),
               ),
-            ),
-            Container(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 32.0),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Neumorphic(
+// Add comment section
+              Container(
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 16.0, vertical: 32.0),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Neumorphic(
+                        style: NeumorphicStyle(
+                          boxShape: NeumorphicBoxShape.roundRect(
+                              BorderRadius.circular(12)),
+                        ),
+                        child: TextField(
+                          controller: _commentController,
+                          decoration: InputDecoration(
+                            hintText: 'Add a comment...',
+                            contentPadding:
+                                const EdgeInsets.symmetric(horizontal: 16.0),
+                            border: OutlineInputBorder(
+                              borderSide: BorderSide.none,
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 8.0),
+                    NeumorphicButton(
+                      onPressed: _addComment,
                       style: NeumorphicStyle(
                         boxShape: NeumorphicBoxShape.roundRect(
                             BorderRadius.circular(12)),
                       ),
-                      child: TextField(
-                        controller: _commentController,
-                        decoration: InputDecoration(
-                          hintText: 'Add a comment...',
-                          contentPadding:
-                              const EdgeInsets.symmetric(horizontal: 16.0),
-                          border: OutlineInputBorder(
-                            borderSide: BorderSide.none,
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                        ),
-                      ),
+                      child: const Icon(Icons.send),
                     ),
-                  ),
-                  const SizedBox(width: 8.0),
-                  NeumorphicButton(
-                    onPressed: _addComment,
-                    style: NeumorphicStyle(
-                      boxShape: NeumorphicBoxShape.roundRect(
-                          BorderRadius.circular(12)),
-                    ),
-                    child: const Icon(Icons.send),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
