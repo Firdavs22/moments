@@ -35,7 +35,7 @@ class _AuthScreenState extends State<AuthScreen> {
                 ),
               ),
 // Spacer для размещения полей и кнопки ниже
-              Spacer(flex: 1),
+              const Spacer(flex: 1),
 // Поле для номера телефона и кнопка авторизации
               Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -65,7 +65,7 @@ class _AuthScreenState extends State<AuthScreen> {
                   const SizedBox(height: 16), // Отступ между полем и кнопкой
 // Кнопка авторизации с заданным размером
                   ConstrainedBox(
-                    constraints: BoxConstraints.tightFor(
+                    constraints: const BoxConstraints.tightFor(
                       width: 400,
                       height: 46,
                     ),
@@ -81,11 +81,11 @@ class _AuthScreenState extends State<AuthScreen> {
                 ],
               ),
 // Spacer для размещения полей и кнопки выше
-              Spacer(flex: 7),
+              const Spacer(flex: 7),
 // Надпись "Регистрация"
               GestureDetector(
                 onTap: _goToRegistration,
-                child: Text(
+                child: const Text(
                   'Registration',
                   style: TextStyle(
                     color: Color.fromRGBO(108, 108, 108, 1),

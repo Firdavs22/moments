@@ -1,94 +1,122 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-import 'hexagon_clipper.dart';
-import 'honeycomb_layout.dart';
+import 'package:glassmorphism/glassmorphism.dart';
+import 'hexagon_grid.dart';
 
 class DiscoverScreen extends StatefulWidget {
   @override
   _DiscoverScreenState createState() => _DiscoverScreenState();
 }
 
-class YourContentWidget extends StatelessWidget {
-  final String content;
-
-  YourContentWidget({required this.content});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 100, // Задайте высоту
-      width: 100, // Задайте ширину
-      child: Image.asset(content, fit: BoxFit.cover),
-    );
-  }
-}
-
 class _DiscoverScreenState extends State<DiscoverScreen> {
-  List<String> trendingContent = [
-    'assets/images/image1.jpg',
-    'assets/images/image2.jpg',
-    'assets/images/image3.jpg',
-    // добавьте свои изображения или другой контент здесь
-  ];
+  TextEditingController _searchController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
-      backgroundColor: NeumorphicTheme.baseColor(context),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: SingleChildScrollView(
-            scrollDirection: Axis.vertical,
-            child: Column(
-              children: [
-                Padding(
-                  padding: EdgeInsets.all(16),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Neumorphic(
-                        style: NeumorphicStyle(
-                          boxShape: NeumorphicBoxShape.roundRect(
-                              BorderRadius.circular(12)),
-                          depth: 2,
-                        ),
-                        child: TextField(
-                          decoration: InputDecoration(
-                            hintText: 'Search',
-                            border: OutlineInputBorder(
-                              borderSide: BorderSide.none,
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                            contentPadding: EdgeInsets.symmetric(
-                                horizontal: 16, vertical: 12),
-                          ),
+      backgroundColor: Colors.blueGrey[50],
+      body: Stack(
+        children: [
+          CustomScrollView(
+            slivers: [
+              SliverAppBar(
+                backgroundColor: Colors.transparent,
+                elevation: 0,
+                flexibleSpace: Container(
+                  color: Colors.grey.withOpacity(0.2),
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
+                    child: Neumorphic(
+                      style: NeumorphicStyle(
+                        shape: NeumorphicShape.flat,
+                        boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(12)),
+                        depth: 8,
+                        lightSource: LightSource.topLeft,
+                        color: Colors.blueGrey[50],
+                      ),
+                      child: TextField(
+                        controller: _searchController,
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
+                          prefixIcon: Icon(Icons.search),
+                          hintText: 'Search',
                         ),
                       ),
-                      NeumorphicButton(
-                        onPressed: () {},
-                        style: NeumorphicStyle(
-                          boxShape: NeumorphicBoxShape.circle(),
-                        ),
-                        child: Icon(Icons.search, color: Colors.grey),
-                        padding: EdgeInsets.all(8),
-                      ),
-                    ],
+                    ),
                   ),
                 ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16),
-                  child: HoneycombLayout(
-                    items: trendingContent.map((content) {
-                      return YourContentWidget(content: content);
-                    }).toList(),
+                expandedHeight: 100,
+                pinned: true,
+              ),
+              SliverToBoxAdapter(
+                child: Padding(
+                  padding: EdgeInsets.only(top: 20.0),
+                  child: HexagonGrid(
+                    screenWidth: screenWidth,
+                    screenHeight: screenHeight,
                   ),
                 ),
-              ],
+              ),
+            ],
+          ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Padding(
+              padding: EdgeInsets.only(bottom: 20.0),
+              child: GlassmorphicContainer(
+                width: screenWidth * 0.7,
+                height: 60,
+                borderRadius: 30,
+                blur: 15,
+                alignment: Alignment.bottomCenter,
+                border: 1.5,
+                linearGradient: LinearGradient(
+                  colors: [
+                    Color(0xFFffffff).withOpacity(0.1),
+                    Color(0xFFFFFFFF).withOpacity(0.05),
+                  ],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                ),
+                borderGradient: LinearGradient(
+                  colors: [
+                    Color(0xFFffffff).withOpacity(0.5),
+                    Color(0xFFFFFFFF).withOpacity(0.5),
+                  ],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    IconButton(
+                      onPressed: () {
+                        // Обработка нажатия на кнопку "поиск"
+                      },
+                      icon: Icon(Icons.search),
+                    ),
+                    IconButton(
+                      onPressed: () {
+                        // Обработка нажатия на кнопку "видео"
+                      },
+                      icon: Icon(Icons.video_library),
+                    ),
+                    IconButton(
+                      onPressed: () {
+                        // Обработка нажатия на кнопку "лента"
+                      },
+                      icon: Icon(Icons.view_list),
+                    ),
+                  ],
+                ),
+              ),
             ),
           ),
+        ],
         ),
-      ),
-    );
-  }
+);
+}
 }

@@ -1,5 +1,3 @@
-import 'dart:math';
-import 'package:flutter/gestures.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
@@ -41,7 +39,6 @@ class _PostWidgetState extends State<PostWidget> {
   bool _isLiked = false;
   bool _isShared = false;
   final TextEditingController _commentController = TextEditingController();
-  final ScrollController _scrollController = ScrollController();
   bool _showComments = false;
 
   void _toggleLike() {
